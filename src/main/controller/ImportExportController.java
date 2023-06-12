@@ -26,7 +26,7 @@ public class ImportExportController {
     @PostMapping("/import")
     public ResponseEntity<UUID> importFile(@RequestParam("file") MultipartFile file) {
         try {
-            UUID taskId = UUID.randomUUID();
+            final var taskId = UUID.randomUUID();
             importTaskService.executeAsyncTask(taskId, TaskType.IMPORT, new File(file.getBytes(), file.getContentType()));
             return ResponseEntity.ok(taskId);
         } catch (IOException e) {
@@ -41,7 +41,7 @@ public class ImportExportController {
 
     @GetMapping("/export")
     public ResponseEntity<UUID> exportToFile() {
-        UUID taskId = UUID.randomUUID();
+        final var taskId = UUID.randomUUID();
         exportTaskService.executeAsyncTask(taskId, TaskType.EXPORT, taskId);
         return ResponseEntity.ok(taskId);
     }

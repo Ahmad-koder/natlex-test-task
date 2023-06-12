@@ -3,6 +3,7 @@ package main.service.excel_parser.mapper;
 import main.model.GeologicalClass;
 import main.model.Section;
 import main.service.excel_parser.util.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -15,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SectionExcelMapper extends ExcelMapper<Section> {
+    private static final Logger log = Logger.getLogger(SectionExcelMapper.class.getName());
 
     public SectionExcelMapper(Row headerRow) {
         super(headerRow);
@@ -78,6 +80,7 @@ public class SectionExcelMapper extends ExcelMapper<Section> {
             return outputStream.toByteArray();
         }
         catch (Exception e) {
+            log.error("Ошибка формирования файла", e);
             throw new RuntimeException("Ошибка формирования файла");
         }
     }

@@ -27,7 +27,7 @@ public class SectionController {
     @GetMapping
     @Transactional(readOnly = true)
     public ResponseEntity<List<Section>> getAllSections() {
-        List<Section> sections = sectionRepository.findAll();
+        final var sections = sectionRepository.findAll();
         return ResponseEntity.ok(sections);
     }
 
@@ -50,7 +50,7 @@ public class SectionController {
 
     @GetMapping("/by-code")
     public ResponseEntity<List<Section>> getSectionsByGeologicalClassCode(@RequestParam("code") String code) {
-        List<Section> sections = sectionRepository.findByGeologicalClassesCode(code);
+        final var sections = sectionRepository.findByGeologicalClassesCode(code);
         return new ResponseEntity<>(sections, HttpStatus.OK);
     }
 }

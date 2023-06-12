@@ -1,7 +1,6 @@
 package main.service.excel_parser.mapper;
 
 import main.service.excel_parser.util.CellUtils;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public abstract class ExcelMapper<T> {
-    private static Logger log = Logger.getLogger(ExcelMapper.class.getName());
+    private static final Logger log = Logger.getLogger(ExcelMapper.class.getName());
 
     private final List<String> headerList = new ArrayList<>();
     private final Map<String, Integer> headerNameToCellIndexMap;

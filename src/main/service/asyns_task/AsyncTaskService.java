@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public abstract class AsyncTaskService<T> {
-    private static Logger log = Logger.getLogger(AsyncTaskService.class.getName());
+    private static final Logger log = Logger.getLogger(AsyncTaskService.class.getName());
     private final Consumer<T> task;
     private final TaskStatusRepository taskStatusRepository;
 
@@ -22,7 +22,7 @@ public abstract class AsyncTaskService<T> {
 
     public void executeAsyncTask(UUID taskId, TaskType taskType, T param) {
         CompletableFuture.runAsync(() -> {
-            Task task = new Task(taskId, TaskStatus.IN_PROGRESS, taskType);
+            final var task = new Task(taskId, TaskStatus.IN_PROGRESS, taskType);
             taskStatusRepository.save(task);
             try {
                 this.task.accept(param);
