@@ -22,24 +22,12 @@ public class ImportExportXLSService {
 
     @Transactional
     public void importXLS(File file) {
-        try {
-            Thread.sleep(10000);
-        }
-        catch (Exception e) {
-            throw new RuntimeException("sdsd");
-        }
         List<Section> sectionList = sectionXLSParserService.parse(file);
         sectionRepository.saveAll(sectionList);
     }
 
     @Transactional
     public void exportXLS(UUID taskId) {
-        try {
-            Thread.sleep(10000);
-        }
-        catch (Exception e) {
-            throw new RuntimeException("sdsd");
-        }
         List<Section> sectionList = sectionRepository.findAll();
         byte[] xls = SectionExcelMapper.map(sectionList);
         filesRepository.save(new File(UUID.randomUUID(), xls, taskId, null, "Section.xls"));
