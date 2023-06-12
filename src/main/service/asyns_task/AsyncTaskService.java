@@ -1,15 +1,17 @@
 package main.service.asyns_task;
 
-import lombok.RequiredArgsConstructor;
-import main.model.dictionaries.TaskStatus;
 import main.model.Task;
+import main.model.dictionaries.TaskStatus;
 import main.model.dictionaries.TaskType;
 import main.repository.TaskStatusRepository;
+import org.apache.log4j.Logger;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+
 public abstract class AsyncTaskService<T> {
+    private static Logger log = Logger.getLogger(AsyncTaskService.class.getName());
     private final Consumer<T> task;
     private final TaskStatusRepository taskStatusRepository;
 
@@ -27,6 +29,7 @@ public abstract class AsyncTaskService<T> {
                 updateTaskStatus(task, TaskStatus.DONE);
             }
             catch (Exception e) {
+                log.error(e.getMessage());
                 updateTaskStatus(task, TaskStatus.ERROR);
             }
         });
